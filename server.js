@@ -17,7 +17,9 @@ if (process.env.NODE_ENV !== 'production') { require('dotenv').config() }
 app.use(express.json());
 
 //create server
-app.listen(port, () => 
+app.listen(port, (req, res) => 
+  res.setHeader('Content-Type', 'application/json');
+  res.end(JSON.stringify({ a: 1 }));  
   console.log(`Vet API listening on port ${port}!`),
 );
 
@@ -157,7 +159,6 @@ app.post('/posts/new', (req, res) => {
 
 //update post
 app.put('/posts/:id', (req, res) => {
-  let time = req.body.time;
   let type = req.body.type;
   let price = req.body.price;
   let amount = req.body.amount;
@@ -165,9 +166,10 @@ app.put('/posts/:id', (req, res) => {
   let imageURL = req.body.imageURL;
   let location = req.body.location;
   let name = req.body.name;
+  let userID = req.body.userID;
 
-  var sql = "INSERT INTO posts (post_time, post_type, price, post_amount, post_description, post_image_url, post_location, post_name) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-  con.query(sql, [time, type, price, amount, description, imageURL, location, name], function (err, result) {
+  var sql = "INSERT INTO posts (post_type, price, post_amount, post_description, post_image_url, post_location, post_name) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+  con.query(sql, [type, price, amount, description, imageURL, location, name, userID], function (err, result) {
     if (err) console.error(err);
     res.send("Edited post!");
   });
