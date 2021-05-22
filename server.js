@@ -20,9 +20,9 @@ app.listen(port, () =>
 
 //create database connection
 var con = mysql.createConnection({
-    host: "localhost",
-    user: "root",
-    password: rootPass,
+    host: "76.250.151.105",
+    user: "heroku",
+    password: 'herokupass123',
     database: "veteran_db"
   });
   
