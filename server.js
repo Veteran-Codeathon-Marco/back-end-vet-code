@@ -1,12 +1,15 @@
 var express = require('express');
-var allowCrossDomain = require("allowCrossDomain");
 var app = express();
-app.use(allowCrossDomain)
 var fs = require("fs");
 var mysql = require('mysql2');
 // const rootPass = require('./secrets');
 const port = process.env.PORT || 3000;
 
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "X-Requested-With");
+  next();
+});
 app.use(express.static(__dirname))
 app.use(
   express.urlencoded({
