@@ -56,7 +56,7 @@ app.get('/teams/:id', (req, res) => {
 })
 
 //create a group
-app.post('/teams/createTeam', (req, res) => {
+app.post('/teams/new', (req, res) => {
   let name = req.body.name;
   let categories = req.body.categories;
   let description = req.body.description;
@@ -64,12 +64,12 @@ app.post('/teams/createTeam', (req, res) => {
   var sql = "INSERT INTO teams (team_name, team_categories, team_description) VALUES (?, ?, ?)";
   con.query(sql, [name, categories, description], function (err, result) {
     if (err) console.error(err);
-    res.send("Created new group!");
+    res.send("Created new team!");
   });
 })
 
 //update group
-app.put('/teams/editTeam/:id', (req, res) => {
+app.put('/teams/:id', (req, res) => {
   let url = req.url;
   let arr = url.split("/");
   let id = arr[arr.length - 1];
@@ -79,19 +79,19 @@ app.put('/teams/editTeam/:id', (req, res) => {
   var sql = "REPLACE INTO teams (team_id), team_name, team_categories, team_description) VALUES (?, ?, ?, ?)";
   con.query(sql, [id, name, categories, description], function (err, result) {
     if (err) console.error(err);
-    res.send("Edited group!");
+    res.send("Edited team!");
   });
 })
 
 //delete group
-app.delete('/teams/deleteTeam/:id', (req, res) => {
+app.delete('/teams/:id', (req, res) => {
   let url = req.url;
   let arr = url.split("/");
   let id = arr[arr.length - 1];
   var sql = "DELETE FROM teams WHERE team_id = ?";
   con.query(sql, id, function (err, result) {
     if (err) console.error(err);
-    res.send("Deleted group!");
+    res.send("Deleted team!");
   });
 })
 
@@ -119,7 +119,7 @@ app.get('/posts/:id', (req, res) => {
 })
 
 //create a post
-app.post('/posts/createPost', (req, res) => {
+app.post('/posts/new', (req, res) => {
   let time = req.body.time;
   let type = req.body.type;
   let price = req.body.price;
@@ -137,7 +137,7 @@ app.post('/posts/createPost', (req, res) => {
 })
 
 //update post
-app.put('/posts/editPost/:id', (req, res) => {
+app.put('/posts/:id', (req, res) => {
   let time = req.body.time;
   let type = req.body.type;
   let price = req.body.price;
@@ -151,5 +151,17 @@ app.put('/posts/editPost/:id', (req, res) => {
   con.query(sql, [time, type, price, amount, description, imageURL, location, name], function (err, result) {
     if (err) console.error(err);
     res.send("Edited post!");
+  });
+})
+
+//delete group
+app.delete('/posts/:id', (req, res) => {
+  let url = req.url;
+  let arr = url.split("/");
+  let id = arr[arr.length - 1];
+  var sql = "DELETE FROM posts WHERE post_id = ?";
+  con.query(sql, id, function (err, result) {
+    if (err) console.error(err);
+    res.send("Deleted post!");
   });
 })
