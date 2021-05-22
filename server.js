@@ -153,7 +153,7 @@ app.post('/posts/new', (req, res) => {
   let name = req.body.name;
   let userID = req.body.userID;
 
-  var sql = "INSERT INTO posts (post_type, price, post_amount, post_description, post_image_url, post_location, post_name) VALUES (?, ?, ?, ?, ?, ?, ?)";
+  var sql = "INSERT INTO posts (post_type, price, post_amount, post_description, post_image_url, post_location, post_name, user_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
   con.query(sql, [type, price, amount, description, imageURL, location, name, userID], function (err, result) {
     if (err) console.error(err);
     res.send("Created new post!");
