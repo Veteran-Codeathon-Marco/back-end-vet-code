@@ -275,7 +275,7 @@ GET https://vet-codeathon.herokuapp.com/employees/
 ------------------------------------------------------------------------------------------------
 
 TO GET AN EMPLOYEE BY ID
-GET https://vet-codeathon.herokuapp.com/employees/<id>
+GET https://vet-codeathon.herokuapp.com/employees/$<id>
 
 ---------------------------------------------------------------------------------------------------
 
@@ -295,7 +295,7 @@ POST https://vet-codeathon.herokuapp.com/employees/new
 -------------------------------------------------------------------------------
 
 TO UPDATE AN EMPLOYEE
-PUT https://vet-codeathon.herokuapp.com/employees/<id>
+PUT https://vet-codeathon.herokuapp.com/employees/$<id>
 
 ^^^NEEDS THESE ATTRIBUTES IN BODY:
 {
@@ -310,7 +310,7 @@ PUT https://vet-codeathon.herokuapp.com/employees/<id>
 ----------------------------------------------------------
 
 TO DELETE AN EMPLOYEE
-DELETE https://vet-codeathon.herokuapp.com/employees/<id>
+DELETE https://vet-codeathon.herokuapp.com/employees/$<id>
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -322,7 +322,7 @@ GET https://vet-codeathon.herokuapp.com/businesses
 --------------------------------------------------------------------------------------
 
 TO GET A BUSINESS BY ID
-GET https://vet-codeathon.herokuapp.com/businesses/<id>
+GET https://vet-codeathon.herokuapp.com/businesses/$<id>
 
 --------------------------------------------------------------------------------------------
 
@@ -340,7 +340,7 @@ POST https://vet-codeathon.herokuapp.com/businesses/new
 ---------------------------------------------------------------------
 
 TO UPDATE A BUSINESS
-PUT https://vet-codeathon.herokuapp.com/businesses/<id>
+PUT https://vet-codeathon.herokuapp.com/businesses/$<id>
 
 ^^^NEEDS THESE ATTRIBUTES IN BODY:
 {
@@ -353,7 +353,7 @@ PUT https://vet-codeathon.herokuapp.com/businesses/<id>
 -----------------------------------------------------------------------------------
 
 TO DELETE A BUSINESS
-DELETE https://vet-codeathon.herokuapp.com/businesses/<id>
+DELETE https://vet-codeathon.herokuapp.com/businesses/$<id>
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -366,7 +366,7 @@ GET https://vet-codeathon.herokuapp.com/posts
 ------------------------------------------------------------------------------------------------
 
 TO GET A POST BY ID
-GET https://vet-codeathon.herokuapp.com/posts/<id>
+GET https://vet-codeathon.herokuapp.com/posts/$<id>
 
 ---------------------------------------------------------------------------------------------------
 
@@ -388,7 +388,7 @@ POST https://vet-codeathon.herokuapp.com/posts/new
 -------------------------------------------------------------------------------
 
 TO UPDATE A POST
-PUT https://vet-codeathon.herokuapp.com/posts/<id>
+PUT https://vet-codeathon.herokuapp.com/posts/$<id>
 
 ^^^NEEDS THESE ATTRIBUTES IN BODY:
 {
@@ -404,7 +404,8 @@ PUT https://vet-codeathon.herokuapp.com/posts/<id>
 ----------------------------------------------------------
 
 TO DELETE A POST
-DELETE https://vet-codeathon.herokuapp.com/posts/<id>
+DELETE https://vet-codeathon.herokuapp.com/posts/$<id>
+
 
  `
 
