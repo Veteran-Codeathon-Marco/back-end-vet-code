@@ -31,8 +31,6 @@ var con = mysql.createPool({
   // mysql://b9e533a14b394b:0d3e9617@us-cdbr-east-03.cleardb.com/heroku_5eadd1519f813b4?reconnect=true
   
 //confirm connection  
-con.connect(function(err) {
-    if (err) console.error(err);
     let sql = "CREATE TABLE IF NOT EXISTS `posts` ( `post_id` int NOT NULL AUTO_INCREMENT COMMENT 'primary key', `post_time` datetime DEFAULT CURRENT_TIMESTAMP, `post_type` enum('Sell','Buy') NOT NULL, `price` decimal(20,2) DEFAULT NULL, `post_amount` varchar(255) DEFAULT NULL, `post_description` text, `post_image_url` varchar(255) DEFAULT NULL, `post_location` varchar(255) DEFAULT NULL, `user_id` int unsigned NOT NULL, `post_name` varchar(255) NOT NULL, PRIMARY KEY (`post_id`), KEY `user_id` (`user_id`), FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`) )"
     con.query(sql, function (err, result) {
       if (err) console.error(err);
@@ -46,8 +44,6 @@ con.connect(function(err) {
       if (err) console.error(err);
     });
 
-    console.log("Connected!");
-});
 
 app.get('/', (req, res) => {
   res.write("Hello!");
