@@ -36,11 +36,7 @@ var con = mysql.createPool({
   // mysql://b9e533a14b394b:0d3e9617@us-cdbr-east-03.cleardb.com/heroku_5eadd1519f813b4?reconnect=true
   
 //confirm connection  
-    let sql = "CREATE TABLE IF NOT EXISTS `posts` ( `post_id` int NOT NULL AUTO_INCREMENT COMMENT 'primary key', `post_time` datetime DEFAULT CURRENT_TIMESTAMP, `post_type` enum('Sell','Buy') NOT NULL, `price` decimal(20,2) DEFAULT NULL, `post_amount` varchar(255) DEFAULT NULL, `post_description` text, `post_image_url` varchar(255) DEFAULT NULL, `post_location` varchar(255) DEFAULT NULL, `employee_id` int unsigned NOT NULL, `post_name` varchar(255) NOT NULL, PRIMARY KEY (`post_id`), KEY `employee_id` (`employee_id`), FOREIGN KEY (`employee_id`) REFERENCES `employees` (`employee_id`) )"
-    con.query(sql, function (err, result) {
-      if (err) console.error(err);
-    });
-    sql = "CREATE TABLE IF NOT EXISTS `businesses` ( `business_id` int NOT NULL AUTO_INCREMENT COMMENT 'primary key', `business_name` varchar(255) NOT NULL, `business_categories` varchar(255) NOT NULL, `business_description` text, `business_image_url` varchar(255) DEFAULT NULL, PRIMARY KEY (`business_id`) )";
+    let sql = "CREATE TABLE IF NOT EXISTS `businesses` ( `business_id` int NOT NULL AUTO_INCREMENT COMMENT 'primary key', `business_name` varchar(255) NOT NULL, `business_categories` varchar(255) NOT NULL, `business_description` text, `business_image_url` varchar(255) DEFAULT NULL, PRIMARY KEY (`business_id`) )";
     con.query(sql, function (err, result) {
       if (err) console.error(err);
     });
@@ -48,10 +44,14 @@ var con = mysql.createPool({
     con.query(sql, function (err, result) {
       if (err) console.error(err);
     });
+    sql = "CREATE TABLE IF NOT EXISTS `posts` ( `post_id` int NOT NULL AUTO_INCREMENT COMMENT 'primary key', `post_time` datetime DEFAULT CURRENT_TIMESTAMP, `post_type` enum('Sell','Buy') NOT NULL, `price` decimal(20,2) DEFAULT NULL, `post_amount` varchar(255) DEFAULT NULL, `post_description` text, `post_image_url` varchar(255) DEFAULT NULL, `post_location` varchar(255) DEFAULT NULL, `employee_id` int unsigned NOT NULL, `post_name` varchar(255) NOT NULL, PRIMARY KEY (`post_id`), KEY `employee_id` (`employee_id`), FOREIGN KEY (`employee_id`) REFERENCES `employees` (`employee_id`) )"
+    con.query(sql, function (err, result) {
+      if (err) console.error(err);
+    });
 
 
 app.get('/', (req, res) => {
-  res.write("Welcome to the Veteran API!");
+  res.write("<h2 style='text-align:center;'>Welcome to the Veteran API!</h2><br><br><br>");
   res.write(DOCUMENTATION_STR);
   res.end();
 });
