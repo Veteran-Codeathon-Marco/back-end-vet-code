@@ -128,9 +128,10 @@ app.post('/posts/new', (req, res) => {
   let imageURL = req.body.imageURL;
   let location = req.body.location;
   let name = req.body.name;
+  let userID = req.body.userID;
 
-  var sql = "INSERT INTO posts (post_time, post_type, price, post_amount, post_description, post_image_url, post_location, post_name) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-  con.query(sql, [time, type, price, amount, description, imageURL, location, name], function (err, result) {
+  var sql = "INSERT INTO posts (post_time, post_type, price, post_amount, post_description, post_image_url, post_location, post_name) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+  con.query(sql, [time, type, price, amount, description, imageURL, location, name, userID], function (err, result) {
     if (err) console.error(err);
     res.send("Created new post!");
   });
@@ -154,7 +155,7 @@ app.put('/posts/:id', (req, res) => {
   });
 })
 
-//delete group
+//delete post
 app.delete('/posts/:id', (req, res) => {
   let url = req.url;
   let arr = url.split("/");
@@ -165,3 +166,71 @@ app.delete('/posts/:id', (req, res) => {
     res.send("Deleted post!");
   });
 })
+
+/*-------START OF USERS API-------*/
+
+//get all users
+app.get('/users', (req, res) => {
+  var sql = "SELECT * FROM users";
+  con.query(sql, function (err, result) {
+    if (err) console.error(err);
+    res.send(result);
+  });
+})
+
+//get one user by id
+app.get('/users/:id', (req, res) => {
+  let url = req.url;
+  let arr = url.split("/");
+  let id = arr[arr.length - 1];
+  var sql = "SELECT * FROM users WHERE user_id = ?";
+  con.query(sql, [id], function (err, result) {
+    if (err) console.error(err);
+    res.send(result);
+  });
+})
+
+//create a user
+app.post('/users/new', (req, res) => {
+  let firstName = req.body.firstName;
+  let lastName = req.body.lastName;
+  let email = req.body.email;
+  let password = req.body.password;
+  let profileURL = req.body.profileURL;
+  let teamID = req.body.teamID;
+
+  var sql = "INSERT INTO users (first_name, last_name, email, password, profile_image_url, team_id) VALUES (?, ?, ?, ?, ?, ?)";
+  con.query(sql, [firstName, lastName, email, password, profileURL, teamID], function (err, result) {
+    if (err) console.error(err);
+    res.send("Created new user!");
+  });
+})
+
+//update a user
+app.post('/users/new', (req, res) => {
+  let firstName = req.body.firstName;
+  let lastName = req.body.lastName;
+  let email = req.body.email;
+  let password = req.body.password;
+  let profileURL = req.body.profileURL;
+  let teamID = req.body.teamID;
+
+  var sql = "INSERT INTO users (first_name, last_name, email, password, profile_image_url, team_id) VALUES (?, ?, ?, ?, ?, ?)";
+  con.query(sql, [firstName, lastName, email, password, profileURL, teamID], function (err, result) {
+    if (err) console.error(err);
+    res.send("Updated user!");
+  });
+})
+
+//delete user
+app.delete('/users/:id', (req, res) => {
+  let url = req.url;
+  let arr = url.split("/");
+  let id = arr[arr.length - 1];
+  var sql = "DELETE FROM posts WHERE user_id = ?";
+  con.query(sql, id, function (err, result) {
+    if (err) console.error(err);
+    res.send("Deleted user!");
+  });
+})
+
