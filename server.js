@@ -2,7 +2,8 @@ var express = require('express');
 var app = express();
 var fs = require("fs");
 var mysql = require('mysql2');
-const rootPass = require('./secrets.js')
+const rootPass = require('./secrets.js');
+const port = process.env.PORT || 3000;
 
 app.use(express.static(__dirname))
 app.use(
@@ -14,7 +15,7 @@ app.use(express.json());
 
 //create server
 app.listen(8080, '0.0.0.0', () =>
-  console.log('Vet API listening on port 8080!'),
+  console.log(`Vet API listening on port ${port}!`),
 );
 
 //create database connection
@@ -31,7 +32,7 @@ con.connect(function(err) {
     console.log("Connected!");
 });
 
-app.use('/', (req, res) => {
+app.get('/', (req, res) => {
   res.write("Hello!");
   res.end();
 });
