@@ -1,9 +1,13 @@
 var express = require('express');
-var app = express();
+// var app = express();
 var fs = require("fs");
 var mysql = require('mysql2');
 // const rootPass = require('./secrets');
 const port = process.env.PORT || 3000;
+var app = http.createServer(function(req,res){
+  res.setHeader('Content-Type', 'application/json');
+  res.end(JSON.stringify({ a: 1 }, null, 3));
+});
 
 app.use(express.static(__dirname))
 app.use(
@@ -17,9 +21,7 @@ if (process.env.NODE_ENV !== 'production') { require('dotenv').config() }
 app.use(express.json());
 
 //create server
-app.listen(port, (req, res) => 
-  res.setHeader('Content-Type', 'application/json');
-  res.end(JSON.stringify({ a: 1 }));  
+app.listen(port, () =>
   console.log(`Vet API listening on port ${port}!`),
 );
 
