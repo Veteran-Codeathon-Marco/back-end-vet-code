@@ -22,7 +22,7 @@ app.listen(port, () =>
 );
 
 //create database connection
-var con = mysql.createConnection({
+var con = mysql.createPool({
     host: "us-cdbr-east-03.cleardb.com",
     user: "b9e533a14b394b",
     password: '0d3e9617',
