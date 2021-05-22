@@ -260,7 +260,7 @@ app.delete('/employees/:id', (req, res) => {
 })
 
  
-const DOCUMENTATION_STR = ```DOCUMENTATION FOR THE VETERAN APP API
+const DOCUMENTATION_STR = `DOCUMENTATION FOR THE VETERAN APP API
 
 BELOW ARE THE THREE TABLES AND THE URLS THAT REQUESTS NEED TO BE SENT TO IN ORDER TO INTERACT WITH THE DATABASE:
 
@@ -406,5 +406,5 @@ PUT https://vet-codeathon.herokuapp.com/posts/<id>
 TO DELETE A POST
 DELETE https://vet-codeathon.herokuapp.com/posts/<id>
 
- ```
+ `
 
