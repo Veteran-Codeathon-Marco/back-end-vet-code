@@ -45,9 +45,6 @@ con.connect(function(err) {
     con.query(sql, function (err, result) {
       if (err) console.error(err);
     });
-    con.query('SET GLOBAL connect_timeout=28800')
-  con.query('SET GLOBAL interactive_timeout=28800')
-  con.query('SET GLOBAL wait_timeout=28800')
 
     console.log("Connected!");
 });
