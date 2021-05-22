@@ -1,4 +1,5 @@
 var express = require('express');
+var allowCrossDomain = require("allowCrossDomain");
 var app = express();
 app.use(allowCrossDomain)
 var fs = require("fs");
