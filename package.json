@@ -1,4 +1,26 @@
 {
-    "name": "vet-codeathon-api",
-    "version": "1.0.0"
+  "name": "vet-codeathon-api",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "description": "Backend for vet codeathon (Node.js, Express.js, MySQL, Postman)",
+  "main": "secrets.js",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "mysql": "^2.18.1",
+    "mysql2": "^2.2.5"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Veteran-Codeathon-Marco/back-end-vet-code.git"
+  },
+  "author": "andrew walsh",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Veteran-Codeathon-Marco/back-end-vet-code/issues"
+  },
+  "homepage": "https://github.com/Veteran-Codeathon-Marco/back-end-vet-code#readme"
 }
