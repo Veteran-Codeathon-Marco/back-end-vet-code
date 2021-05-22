@@ -1,6 +1,5 @@
 var express = require('express');
-var http = require("http");
-// var app = express();
+var app = express();
 var fs = require("fs");
 var mysql = require('mysql2');
 // const rootPass = require('./secrets');
@@ -61,7 +60,7 @@ app.get('/teams', (req, res) => {
   var sql = "SELECT * FROM teams";
   con.query(sql, function (err, result) {
     if (err) console.error(err);
-    res.send(result)
+    res.json(result)
     res.end()
   });
 })
