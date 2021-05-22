@@ -30,6 +30,19 @@ var con = mysql.createConnection({
 //confirm connection  
 con.connect(function(err) {
     if (err) console.error(err);
+    let sql = "CREATE TABLE IF NOT EXISTS `posts` ( `post_id` int NOT NULL AUTO_INCREMENT COMMENT 'primary key', `post_time` datetime DEFAULT CURRENT_TIMESTAMP, `post_type` enum('Sell','Buy') NOT NULL, `price` decimal(20,2) DEFAULT NULL, `post_amount` varchar(255) DEFAULT NULL, `post_description` text, `post_image_url` varchar(255) DEFAULT NULL, `post_location` varchar(255) DEFAULT NULL, `user_id` int unsigned NOT NULL, `post_name` varchar(255) NOT NULL, PRIMARY KEY (`post_id`), KEY `user_id` (`user_id`), CONSTRAINT `posts_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`) ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci"
+    con.query(sql, function (err, result) {
+      if (err) console.error(err);
+    });
+    let sql = "CREATE TABLE `teams` ( `team_id` int NOT NULL AUTO_INCREMENT COMMENT 'primary key', `team_name` varchar(255) NOT NULL, `team_categories` varchar(255) NOT NULL, `team_description` text, `team_image_url` varchar(255) DEFAULT NULL, PRIMARY KEY (`team_id`) ) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci";
+    con.query(sql, function (err, result) {
+      if (err) console.error(err);
+    });
+    let sql = "CREATE TABLE `users` ( `user_id` int unsigned NOT NULL AUTO_INCREMENT, `first_name` varchar(63) NOT NULL, `last_name` varchar(63) NOT NULL, `email` varchar(127) NOT NULL, `password` varchar(255) NOT NULL, `profile_image_url` varchar(255) DEFAULT NULL, `team_id` int DEFAULT NULL, PRIMARY KEY (`user_id`), UNIQUE KEY `email` (`email`), KEY `team_id` (`team_id`), CONSTRAINT `users_ibfk_1` FOREIGN KEY (`team_id`) REFERENCES `teams` (`team_id`) ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci";
+    con.query(sql, function (err, result) {
+      if (err) console.error(err);
+    });
+
     console.log("Connected!");
 });
 
