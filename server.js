@@ -2,7 +2,7 @@ var express = require('express');
 var app = express();
 var fs = require("fs");
 var mysql = require('mysql2');
-const rootPass = "Redsox031391";
+const rootPass = require('./secrets');
 const port = process.env.PORT || 3000;
 
 app.use(express.static(__dirname))
@@ -20,8 +20,8 @@ app.listen(port, () =>
 
 //create database connection
 var con = mysql.createConnection({
-    host: "mysql://b849959eda0beb:56a0d1ed@us-cdbr-east-03.cleardb.com/heroku_f2eed1d5bc8555c?reconnect=true",
-    user: "b849959eda0beb",
+    host: "localhost",
+    user: "root",
     password: rootPass,
     database: "veteran_db"
   });
@@ -47,7 +47,7 @@ app.get('/teams', (req, res) => {
   });
 })
 
-//get one group by id
+//get one team by id
 app.get('/teams/:id', (req, res) => {
   let url = req.url;
   let arr = url.split("/");
@@ -59,20 +59,21 @@ app.get('/teams/:id', (req, res) => {
   });
 })
 
-//create a group
+//create a team
 app.post('/teams/new', (req, res) => {
   let name = req.body.name;
   let categories = req.body.categories;
   let description = req.body.description;
+  let imageURL = req.body.imageURL;
   console.log(name, categories, description);
-  var sql = "INSERT INTO teams (team_name, team_categories, team_description) VALUES (?, ?, ?)";
-  con.query(sql, [name, categories, description], function (err, result) {
+  var sql = "INSERT INTO teams (team_name, team_categories, team_description, team_image_url) VALUES (?, ?, ?, ?)";
+  con.query(sql, [name, categories, description, imageURL], function (err, result) {
     if (err) console.error(err);
     res.send("Created new team!");
   });
 })
 
-//update group
+//update team
 app.put('/teams/:id', (req, res) => {
   let url = req.url;
   let arr = url.split("/");
@@ -87,7 +88,7 @@ app.put('/teams/:id', (req, res) => {
   });
 })
 
-//delete group
+//delete team
 app.delete('/teams/:id', (req, res) => {
   let url = req.url;
   let arr = url.split("/");
@@ -124,7 +125,6 @@ app.get('/posts/:id', (req, res) => {
 
 //create a post
 app.post('/posts/new', (req, res) => {
-  let time = req.body.time;
   let type = req.body.type;
   let price = req.body.price;
   let amount = req.body.amount;
@@ -134,8 +134,8 @@ app.post('/posts/new', (req, res) => {
   let name = req.body.name;
   let userID = req.body.userID;
 
-  var sql = "INSERT INTO posts (post_time, post_type, price, post_amount, post_description, post_image_url, post_location, post_name) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
-  con.query(sql, [time, type, price, amount, description, imageURL, location, name, userID], function (err, result) {
+  var sql = "INSERT INTO posts (post_time, post_type, price, post_amount, post_description, post_image_url, post_location, post_name) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+  con.query(sql, [type, price, amount, description, imageURL, location, name, userID], function (err, result) {
     if (err) console.error(err);
     res.send("Created new post!");
   });
@@ -200,11 +200,11 @@ app.post('/users/new', (req, res) => {
   let lastName = req.body.lastName;
   let email = req.body.email;
   let password = req.body.password;
-  let profileURL = req.body.profileURL;
+  let imageURL = req.body.imageURL;
   let teamID = req.body.teamID;
 
   var sql = "INSERT INTO users (first_name, last_name, email, password, profile_image_url, team_id) VALUES (?, ?, ?, ?, ?, ?)";
-  con.query(sql, [firstName, lastName, email, password, profileURL, teamID], function (err, result) {
+  con.query(sql, [firstName, lastName, email, password, imageURL, teamID], function (err, result) {
     if (err) console.error(err);
     res.send("Created new user!");
   });
@@ -216,11 +216,11 @@ app.post('/users/new', (req, res) => {
   let lastName = req.body.lastName;
   let email = req.body.email;
   let password = req.body.password;
-  let profileURL = req.body.profileURL;
+  let imageURL = req.body.imageURL;
   let teamID = req.body.teamID;
 
   var sql = "INSERT INTO users (first_name, last_name, email, password, profile_image_url, team_id) VALUES (?, ?, ?, ?, ?, ?)";
-  con.query(sql, [firstName, lastName, email, password, profileURL, teamID], function (err, result) {
+  con.query(sql, [firstName, lastName, email, password, imageURL, teamID], function (err, result) {
     if (err) console.error(err);
     res.send("Updated user!");
   });
