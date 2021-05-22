@@ -27,7 +27,6 @@ var con = mysql.createConnection({
     user: "b9e533a14b394b",
     password: '0d3e9617',
     database: "heroku_5eadd1519f813b4",
-    reconnect: true
   });
   // mysql://b9e533a14b394b:0d3e9617@us-cdbr-east-03.cleardb.com/heroku_5eadd1519f813b4?reconnect=true
   
@@ -46,6 +45,9 @@ con.connect(function(err) {
     con.query(sql, function (err, result) {
       if (err) console.error(err);
     });
+    con.query('SET GLOBAL connect_timeout=28800')
+  con.query('SET GLOBAL interactive_timeout=28800')
+  con.query('SET GLOBAL wait_timeout=28800')
 
     console.log("Connected!");
 });
