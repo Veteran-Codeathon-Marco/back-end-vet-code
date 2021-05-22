@@ -34,11 +34,11 @@ con.connect(function(err) {
     con.query(sql, function (err, result) {
       if (err) console.error(err);
     });
-    sql = "CREATE TABLE `teams` ( `team_id` int NOT NULL AUTO_INCREMENT COMMENT 'primary key', `team_name` varchar(255) NOT NULL, `team_categories` varchar(255) NOT NULL, `team_description` text, `team_image_url` varchar(255) DEFAULT NULL, PRIMARY KEY (`team_id`) )";
+    sql = "CREATE TABLE IF NOT EXISTS `teams` ( `team_id` int NOT NULL AUTO_INCREMENT COMMENT 'primary key', `team_name` varchar(255) NOT NULL, `team_categories` varchar(255) NOT NULL, `team_description` text, `team_image_url` varchar(255) DEFAULT NULL, PRIMARY KEY (`team_id`) )";
     con.query(sql, function (err, result) {
       if (err) console.error(err);
     });
-    sql = "CREATE TABLE `users` ( `user_id` int unsigned NOT NULL AUTO_INCREMENT, `first_name` varchar(63) NOT NULL, `last_name` varchar(63) NOT NULL, `email` varchar(127) NOT NULL, `password` varchar(255) NOT NULL, `profile_image_url` varchar(255) DEFAULT NULL, `team_id` int DEFAULT NULL, PRIMARY KEY (`user_id`), UNIQUE KEY `email` (`email`), KEY `team_id` (`team_id`), FOREIGN KEY (`team_id`) REFERENCES `teams` (`team_id`) )";
+    sql = "CREATE TABLE IF NOT EXISTS `users` ( `user_id` int unsigned NOT NULL AUTO_INCREMENT, `first_name` varchar(63) NOT NULL, `last_name` varchar(63) NOT NULL, `email` varchar(127) NOT NULL, `password` varchar(255) NOT NULL, `profile_image_url` varchar(255) DEFAULT NULL, `team_id` int DEFAULT NULL, PRIMARY KEY (`user_id`), UNIQUE KEY `email` (`email`), KEY `team_id` (`team_id`), FOREIGN KEY (`team_id`) REFERENCES `teams` (`team_id`) )";
     con.query(sql, function (err, result) {
       if (err) console.error(err);
     });
