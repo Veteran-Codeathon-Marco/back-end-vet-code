@@ -2,6 +2,7 @@ var express = require('express');
 var app = express();
 var fs = require("fs");
 var mysql = require('mysql2');
+const rootPass = require('./secrets.js')
 
 app.use(express.static(__dirname))
 app.use(
@@ -12,15 +13,15 @@ app.use(
 app.use(express.json());
 
 //create server
-app.listen(8080, () =>
-  console.log('Example app listening on port 8080!'),
+app.listen(8080, '0.0.0.0', () =>
+  console.log('Vet API listening on port 8080!'),
 );
 
 //create database connection
 var con = mysql.createConnection({
     host: "localhost",
     user: "root",
-    password: "Redsox031391",
+    password: rootPass,
     database: "veteran_db",
     insecureAuth : true,
   });
@@ -30,6 +31,8 @@ con.connect(function(err) {
     if (err) console.error(err);
     console.log("Connected!");
 });
+
+/*-------START OF TEAMS API-------*/
 
 //get all teams
 app.get('/teams', (req, res) => {
@@ -45,7 +48,7 @@ app.get('/teams/:id', (req, res) => {
   let url = req.url;
   let arr = url.split("/");
   let id = arr[arr.length - 1];
-  var sql = "SELECT * FROM teams WHERE id = ?";
+  var sql = "SELECT * FROM teams WHERE team_id = ?";
   con.query(sql, [id], function (err, result) {
     if (err) console.error(err);
     res.send(result);
@@ -73,7 +76,7 @@ app.put('/teams/editTeam/:id', (req, res) => {
   let name = req.body.name;
   let categories = req.body.categories;
   let description = req.body.description;
-  var sql = "REPLACE INTO teams (id, team_name, team_categories, team_description) VALUES (?, ?, ?, ?)";
+  var sql = "REPLACE INTO teams (team_id), team_name, team_categories, team_description) VALUES (?, ?, ?, ?)";
   con.query(sql, [id, name, categories, description], function (err, result) {
     if (err) console.error(err);
     res.send("Edited group!");
@@ -85,9 +88,68 @@ app.delete('/teams/deleteTeam/:id', (req, res) => {
   let url = req.url;
   let arr = url.split("/");
   let id = arr[arr.length - 1];
-  var sql = "DELETE FROM teams WHERE id = ?";
+  var sql = "DELETE FROM teams WHERE team_id = ?";
   con.query(sql, id, function (err, result) {
     if (err) console.error(err);
     res.send("Deleted group!");
+  });
+})
+
+/*-------START OF POSTS API-------*/
+
+//get all posts
+app.get('/posts', (req, res) => {
+  var sql = "SELECT * FROM posts";
+  con.query(sql, function (err, result) {
+    if (err) console.error(err);
+    res.send(result);
+  });
+})
+
+//get one post by id
+app.get('/posts/:id', (req, res) => {
+  let url = req.url;
+  let arr = url.split("/");
+  let id = arr[arr.length - 1];
+  var sql = "SELECT * FROM posts WHERE post_id = ?";
+  con.query(sql, [id], function (err, result) {
+    if (err) console.error(err);
+    res.send(result);
+  });
+})
+
+//create a post
+app.post('/posts/createPost', (req, res) => {
+  let time = req.body.time;
+  let type = req.body.type;
+  let price = req.body.price;
+  let amount = req.body.amount;
+  let description = req.body.description;
+  let imageURL = req.body.imageURL;
+  let location = req.body.location;
+  let name = req.body.name;
+
+  var sql = "INSERT INTO posts (post_time, post_type, price, post_amount, post_description, post_image_url, post_location, post_name) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+  con.query(sql, [time, type, price, amount, description, imageURL, location, name], function (err, result) {
+    if (err) console.error(err);
+    res.send("Created new post!");
+  });
+})
+
+//update post
+app.put('/posts/editPost/:id', (req, res) => {
+  let time = req.body.time;
+  let type = req.body.type;
+  let price = req.body.price;
+  let amount = req.body.amount;
+  let description = req.body.description;
+  let imageURL = req.body.imageURL;
+  let location = req.body.location;
+  let name = req.body.name;
+
+  var sql = "INSERT INTO posts (post_time, post_type, price, post_amount, post_description, post_image_url, post_location, post_name) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+  con.query(sql, [time, type, price, amount, description, imageURL, location, name], function (err, result) {
+    if (err) console.error(err);
+    res.send("Edited post!");
   });
 })
