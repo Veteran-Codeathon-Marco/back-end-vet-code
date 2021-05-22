@@ -52,7 +52,7 @@ var con = mysql.createPool({
 
 app.get('/', (req, res) => {
   res.write("<h2 style='text-align:center;'>Welcome to the Veteran API!</h2><br><br><br>");
-  res.write(DOCUMENTATION_STR);
+  res.write("<p>" + DOCUMENTATION_STR + "</p>");
   res.end();
 });
 
