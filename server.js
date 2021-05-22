@@ -22,8 +22,7 @@ var con = mysql.createConnection({
     host: "localhost",
     user: "root",
     password: rootPass,
-    database: "veteran_db",
-    insecureAuth : true,
+    database: "veteran_db"
   });
   
 //confirm connection  
@@ -32,6 +31,10 @@ con.connect(function(err) {
     console.log("Connected!");
 });
 
+app.use('/', (req, res) => {
+  res.write("Hello!");
+  res.end();
+});
 /*-------START OF TEAMS API-------*/
 
 //get all teams
