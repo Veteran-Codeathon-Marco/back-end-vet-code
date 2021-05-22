@@ -4,10 +4,6 @@ var fs = require("fs");
 var mysql = require('mysql2');
 // const rootPass = require('./secrets');
 const port = process.env.PORT || 3000;
-var app = http.createServer(function(req,res){
-  res.setHeader('Content-Type', 'application/json');
-  res.end(JSON.stringify({ a: 1 }, null, 3));
-});
 
 app.use(express.static(__dirname))
 app.use(
