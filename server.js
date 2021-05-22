@@ -69,7 +69,7 @@ app.get('/teams/:id', (req, res) => {
   var sql = "SELECT * FROM teams WHERE team_id = ?";
   con.query(sql, [id], function (err, result) {
     if (err) console.error(err);
-    res.send(result);
+    res.json(result);
   });
 })
 
@@ -121,7 +121,7 @@ app.get('/posts', (req, res) => {
   var sql = "SELECT * FROM posts";
   con.query(sql, function (err, result) {
     if (err) console.error(err);
-    res.send(result);
+    res.json(result);
   });
 })
 
@@ -133,7 +133,7 @@ app.get('/posts/:id', (req, res) => {
   var sql = "SELECT * FROM posts WHERE post_id = ?";
   con.query(sql, [id], function (err, result) {
     if (err) console.error(err);
-    res.send(result);
+    res.json(result);
   });
 })
 
@@ -192,7 +192,7 @@ app.get('/users', (req, res) => {
   var sql = "SELECT * FROM users";
   con.query(sql, function (err, result) {
     if (err) console.error(err);
-    res.send(result);
+    res.json(result);
   });
 })
 
@@ -204,7 +204,7 @@ app.get('/users/:id', (req, res) => {
   var sql = "SELECT * FROM users WHERE user_id = ?";
   con.query(sql, [id], function (err, result) {
     if (err) console.error(err);
-    res.send(result);
+    res.json(result);
   });
 })
 
