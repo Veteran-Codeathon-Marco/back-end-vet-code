@@ -14,7 +14,7 @@ app.use(
 app.use(express.json());
 
 //create server
-app.listen(8080, '0.0.0.0', () =>
+app.listen(port, '0.0.0.0', () =>
   console.log(`Vet API listening on port ${port}!`),
 );
 
