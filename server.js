@@ -60,7 +60,7 @@ app.get('/teams', (req, res) => {
   var sql = "SELECT * FROM teams";
   con.query(sql, function (err, result) {
     if (err) console.error(err);
-    res.write(res)
+    res.send(res)
     res.end()
   });
 })
