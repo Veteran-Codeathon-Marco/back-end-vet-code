@@ -26,7 +26,7 @@ var con = mysql.createConnection({
     host: "us-cdbr-east-03.cleardb.com",
     user: "b9e533a14b394b",
     password: '0d3e9617',
-    database: "heroku_5eadd1519f813b4"
+    database: "heroku_5eadd1519f813b4?reconnect=true"
   });
   // mysql://b9e533a14b394b:0d3e9617@us-cdbr-east-03.cleardb.com/heroku_5eadd1519f813b4?reconnect=true
   
