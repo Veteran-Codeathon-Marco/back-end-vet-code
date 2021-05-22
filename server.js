@@ -20,11 +20,12 @@ app.listen(port, () =>
 
 //create database connection
 var con = mysql.createConnection({
-    host: "76.250.151.105",
-    user: "heroku",
-    password: 'herokupass123',
-    database: "veteran_db"
+    host: "s-cdbr-east-03.cleardb.com",
+    user: "b9e533a14b394b",
+    password: '0d3e9617',
+    database: "heroku_5eadd1519f813b4"
   });
+  mysql://b9e533a14b394b:0d3e9617@us-cdbr-east-03.cleardb.com/heroku_5eadd1519f813b4?reconnect=true
   
 //confirm connection  
 con.connect(function(err) {
