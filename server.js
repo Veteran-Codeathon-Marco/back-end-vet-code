@@ -21,7 +21,7 @@ app.use(express.json());
 app.listen(port, () =>
   console.log(`Vet API listening on port ${port}!`),
 );
-
+           
 //create database connection
 var con = mysql.createPool({
     host: "us-cdbr-east-03.cleardb.com",
