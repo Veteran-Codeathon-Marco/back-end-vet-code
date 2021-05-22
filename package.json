@@ -4,6 +4,9 @@
   "scripts": {
     "start": "node server.js"
   },
+  "engines": {
+    "node": "8.9.3"
+},
   "description": "Backend for vet codeathon (Node.js, Express.js, MySQL, Postman)",
   "main": "secrets.js",
   "dependencies": {
