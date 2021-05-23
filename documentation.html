@@ -1,16 +1,19 @@
 <!DOCTYPE html>
 <html>
   <head>
-        <meta charset="utf-8"/>
-        <meta http-equiv="X-UA-Compatible" content="IE=11"/>
-        <meta http-equiv="Cache-Control" content="no-cache"/>
-        <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self';"/>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=11" />
+    <meta http-equiv="Cache-Control" content="no-cache" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; style-src 'self';"
+    />
     <title>Vet API Docs</title>
   </head>
   <body>
     <h2>Welcome to the Veteran API!</h2>
     <p>
-      <br /><br /><br /><br />DOCUMENTATION FOR THE
+      Welcome to the Veteran API!<br /><br /><br /><br />DOCUMENTATION FOR THE
       VETERAN APP API<br /><br />BELOW ARE THE FOUR TABLES AND THE URLS THAT
       REQUESTS NEED TO BE SENT TO IN ORDER TO INTERACT WITH THE DATABASE:<br /><br />TO
       POST INFO, YOU NEED TO SEND AN OBJECT WITH KEY-VALUE PAIRS IN THE
@@ -30,7 +33,12 @@
       PER EMAIL, THE DATABASE REJECT DUPLICATES!!!<br />&nbsp; &nbsp;
       password:<br />&nbsp; &nbsp; imageURL &lt;OPTIONAL&gt;:<br />}<br /><br />----------------------------------------------------------<br /><br />TO
       DELETE A USER<br />DELETE
-      https://vet-codeathon.herokuapp.com/users/{id}<br /><br />///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////<br /><br />EMPLOYEES
+      https://vet-codeathon.herokuapp.com/users/{id}<br /><br />----------------------------------------------------------<br /><br />TO
+      AUTHENTICATE USER PASSWORD<br />POST
+      https://vet-codeathon.herokuapp.com/users/auth/{id}<br /><br />^^^NEEDS
+      THESE ATTRIBUTES IN BODY:<br />{<br />&nbsp; &nbsp; password:<br />}<br /><br />RETURNS
+      THIS FORMAT:<br />{<br />&nbsp; &nbsp; &quot;match&quot;: &lt;TRUE OR
+      FALSE&gt;<br />}<br /><br />///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////<br /><br />EMPLOYEES
       API:<br /><br />TO GET ALL EMPLOYEES<br />GET
       https://vet-codeathon.herokuapp.com/employees/<br /><br />------------------------------------------------------------------------------------------------<br /><br />TO
       GET AN EMPLOYEE BY ID<br />GET
@@ -50,7 +58,12 @@
       password:<br />&nbsp; &nbsp; imageURL &lt;OPTIONAL&gt;:<br />&nbsp; &nbsp;
       businessID &lt;OPTIONAL&gt;:<br />}<br /><br />----------------------------------------------------------<br /><br />TO
       DELETE AN EMPLOYEE<br />DELETE
-      https://vet-codeathon.herokuapp.com/employees/{id}<br /><br />///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////<br /><br />BUSINESSES
+      https://vet-codeathon.herokuapp.com/employees/{id}<br /><br />----------------------------------------------------------<br /><br />TO
+      AUTHENTICATE EMPLOYEE PASSWORD<br />POST
+      https://vet-codeathon.herokuapp.com/employees/auth/{id}<br /><br />^^^NEEDS
+      THESE ATTRIBUTES IN BODY:<br />{<br />&nbsp; &nbsp; password:<br />}<br /><br />RETURNS
+      THIS FORMAT:<br />{<br />&nbsp; &nbsp; &quot;match&quot;: &lt;TRUE OR
+      FALSE&gt;<br />}<br /><br />///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////<br /><br />BUSINESSES
       API:<br /><br />TO GET ALL BUSINESSES<br />GET
       https://vet-codeathon.herokuapp.com/businesses<br /><br />--------------------------------------------------------------------------------------<br /><br />TO
       GET A BUSINESS BY ID<br />GET
@@ -91,22 +104,22 @@
       https://vet-codeathon.herokuapp.com/posts/{id}<br /><br /><br /><br /><br /><br />
     </p>
     <h2>BELOW ARE THE TABLE DESIGNS</h2>
-    <div style="margin:auto;">
+    <div style="margin: auto">
       BUSINESSES
-      <img src="img/businesses.png">
+      <img src="img/businesses.png" />
     </div>
-    <div style="margin:auto;">
+    <div style="margin: auto">
       EMPLOYEES
-      <img src="img/employees.png">
+      <img src="img/employees.png" />
     </div>
-    <div style="margin:auto;">
+    <div style="margin: auto">
       POSTS
-      <img src="img/posts.png">
+      <img src="img/posts.png" />
     </div>
-    <div style="margin:auto;">
+    <div style="margin: auto">
       USERS
-      <img src="img/users.png">
+      <img src="img/users.png" />
     </div>
   </body>
 </html>
-<div style="margin:auto;">
+<div style="margin: auto"></div>

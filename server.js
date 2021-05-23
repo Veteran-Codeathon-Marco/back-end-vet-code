@@ -372,7 +372,7 @@ app.post('/employees/auth/:id', (req, res) => {
   var sql = "SELECT * FROM employees WHERE employee_id = ?";
   con.query(sql, id, function(err, result){
     if (err) console.error(err)
-    res.json({"match": bcrypt.compareSync(attempt, result.password)});
+    res.json({"match": bcrypt.compareSync(attempt, result[0].password)});
   })  
 })
 
