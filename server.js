@@ -107,12 +107,12 @@ app.post('/users/new', (req, res) => {
   var sql = "INSERT INTO users (first_name, last_name, email, password, profile_image_url, address) VALUES (?, ?, ?, ?, ?, ?)";
   con.query(sql, [firstName, lastName, email, password, imageURL, address], function (err, result) {
     if (err) console.error(err);
-    res.send("Created new user!");
+    res.json(result);
   });
 })
 
 //update a user
-app.put('/users/:id', (req, res) => {
+app.put('/users/:id', (req, res) => {https://vet-codeathon.herokuapp.com/employees/new
   let firstName = req.body.firstName;
   let lastName = req.body.lastName;
   let email = req.body.email;
