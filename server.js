@@ -63,7 +63,7 @@ var con = mysql.createPool({
 
 
 app.get('/', (req, res) => {
-  res.sendFile('public/documentation.html' , { root : __dirname});
+  res.sendFile( path.resolve('documentation.html') );
   res.end();
 });
 
