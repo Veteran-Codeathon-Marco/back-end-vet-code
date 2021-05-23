@@ -99,7 +99,11 @@ app.post('/users/new', (req, res) => {
   let firstName = req.body.firstName;
   let lastName = req.body.lastName;
   let email = req.body.email;
-  let password = req.body.password;
+  let password;
+  bcrypt.hash(req.body.password, saltRounds, function(err, hash) {
+    if (err) console.error(err)
+    password = hash;
+  });
   let imageURL = req.body.imageURL;
 
   var sql = "INSERT INTO users (first_name, last_name, email, password, profile_image_url) VALUES (?, ?, ?, ?, ?)";
@@ -114,7 +118,11 @@ app.put('/users/id', (req, res) => {
   let firstName = req.body.firstName;
   let lastName = req.body.lastName;
   let email = req.body.email;
-  let password = req.body.password;
+  let password;
+  bcrypt.hash(req.body.password, saltRounds, function(err, hash) {
+    if (err) console.error(err)
+    password = hash;
+  });
   let imageURL = req.body.imageURL;
   let url = req.url;
   let arr = url.split("/");
@@ -137,6 +145,21 @@ app.delete('/users/:id', (req, res) => {
     if (err) console.error(err);
     res.send("Deleted user!");
   });
+})
+
+//authenticate user password
+app.post('/users/auth/:id', (req, res) => {
+  let attempt = req.body.password;
+  sql = let url = req.url;
+  let arr = url.split("/");
+  let id = arr[arr.length - 1];
+  var sql = "SELECT * FROM users WHERE user_id = ?";
+  con.query(sql, id, function(err, result){
+    if (err) console.error(err)
+    bcrypt.compare(attempt, result.password).then(function(_result) {
+      res.json({"match": _result});
+    });
+  })  
 })
 
 
@@ -309,7 +332,11 @@ app.post('/employees/new', (req, res) => {
   let firstName = req.body.firstName;
   let lastName = req.body.lastName;
   let email = req.body.email;
-  let password = req.body.password;
+  let password;
+  bcrypt.hash(req.body.password, saltRounds, function(err, hash) {
+    if (err) console.error(err)
+    password = hash;
+  });
   let imageURL = req.body.imageURL;
   let businessID = req.body.businessID;
 
@@ -325,7 +352,11 @@ app.post('/employees/new', (req, res) => {
   let firstName = req.body.firstName;
   let lastName = req.body.lastName;
   let email = req.body.email;
-  let password = req.body.password;
+  let password;
+  bcrypt.hash(req.body.password, saltRounds, function(err, hash) {
+    if (err) console.error(err)
+    password = hash;
+  });
   let imageURL = req.body.imageURL;
   let businessID = req.body.businessID;
 
@@ -346,6 +377,21 @@ app.delete('/employees/:id', (req, res) => {
     if (err) console.error(err);
     res.send("Deleted employee!");
   });
+})
+
+//authenticate employee password
+app.post('/employee/auth/:id', (req, res) => {
+  let attempt = req.body.password;
+  sql = let url = req.url;
+  let arr = url.split("/");
+  let id = arr[arr.length - 1];
+  var sql = "SELECT * FROM employee WHERE employee_id = ?";
+  con.query(sql, id, function(err, result){
+    if (err) console.error(err)
+    bcrypt.compare(attempt, result.password).then(function(_result) {
+      res.json({"match": _result});
+    });
+  })  
 })
 
  
