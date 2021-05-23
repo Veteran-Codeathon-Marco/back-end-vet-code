@@ -64,7 +64,7 @@ var con = mysql.createPool({
 
 
 app.get('/', (req, res) => {
-  res.sendFile('documentation.html', (req, res) => {
+  res.sendFile(__dirname + '/documentation.html', (req, res) => {
     if (err) console.error(err)
     console.log('sent the docs')
   })
