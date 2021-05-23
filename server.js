@@ -150,7 +150,7 @@ app.delete('/users/:id', (req, res) => {
 //authenticate user password
 app.post('/users/auth/:id', (req, res) => {
   let attempt = req.body.password;
-  sql = let url = req.url;
+  let url = req.url;
   let arr = url.split("/");
   let id = arr[arr.length - 1];
   var sql = "SELECT * FROM users WHERE user_id = ?";
@@ -382,7 +382,7 @@ app.delete('/employees/:id', (req, res) => {
 //authenticate employee password
 app.post('/employee/auth/:id', (req, res) => {
   let attempt = req.body.password;
-  sql = let url = req.url;
+  let url = req.url;
   let arr = url.split("/");
   let id = arr[arr.length - 1];
   var sql = "SELECT * FROM employee WHERE employee_id = ?";
