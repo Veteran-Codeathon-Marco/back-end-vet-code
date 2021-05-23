@@ -3,6 +3,7 @@ var app = express();
 var fs = require("fs");
 var mysql = require('mysql2');
 var path = require('path');
+var bcrypt = require("bcrypt-nodejs")
 // const rootPass = require('./secrets');
 const port = process.env.PORT || 3000;
 
@@ -99,11 +100,7 @@ app.post('/users/new', (req, res) => {
   let firstName = req.body.firstName;
   let lastName = req.body.lastName;
   let email = req.body.email;
-  let password;
-  bcrypt.hash(req.body.password, saltRounds, function(err, hash) {
-    if (err) console.error(err)
-    password = hash;
-  });
+  let password = bcrypt.hashSync(req.body.password);
   let imageURL = req.body.imageURL;
 
   var sql = "INSERT INTO users (first_name, last_name, email, password, profile_image_url) VALUES (?, ?, ?, ?, ?)";
@@ -118,11 +115,7 @@ app.put('/users/id', (req, res) => {
   let firstName = req.body.firstName;
   let lastName = req.body.lastName;
   let email = req.body.email;
-  let password;
-  bcrypt.hash(req.body.password, saltRounds, function(err, hash) {
-    if (err) console.error(err)
-    password = hash;
-  });
+  let password = bcrypt.hashSync(req.body.password);
   let imageURL = req.body.imageURL;
   let url = req.url;
   let arr = url.split("/");
@@ -156,9 +149,7 @@ app.post('/users/auth/:id', (req, res) => {
   var sql = "SELECT * FROM users WHERE user_id = ?";
   con.query(sql, id, function(err, result){
     if (err) console.error(err)
-    bcrypt.compare(attempt, result.password).then(function(_result) {
-      res.json({"match": _result});
-    });
+    res.json({"match": bcrypt.compareSync(attempt, result.password)});
   })  
 })
 
@@ -332,11 +323,7 @@ app.post('/employees/new', (req, res) => {
   let firstName = req.body.firstName;
   let lastName = req.body.lastName;
   let email = req.body.email;
-  let password;
-  bcrypt.hash(req.body.password, saltRounds, function(err, hash) {
-    if (err) console.error(err)
-    password = hash;
-  });
+  let password = bcrypt.hashSync(req.body.password);
   let imageURL = req.body.imageURL;
   let businessID = req.body.businessID;
 
@@ -352,11 +339,7 @@ app.post('/employees/new', (req, res) => {
   let firstName = req.body.firstName;
   let lastName = req.body.lastName;
   let email = req.body.email;
-  let password;
-  bcrypt.hash(req.body.password, saltRounds, function(err, hash) {
-    if (err) console.error(err)
-    password = hash;
-  });
+  let password = bcrypt.hashSync(req.body.password);
   let imageURL = req.body.imageURL;
   let businessID = req.body.businessID;
 
@@ -380,17 +363,15 @@ app.delete('/employees/:id', (req, res) => {
 })
 
 //authenticate employee password
-app.post('/employee/auth/:id', (req, res) => {
+app.post('/employees/auth/:id', (req, res) => {
   let attempt = req.body.password;
   let url = req.url;
   let arr = url.split("/");
   let id = arr[arr.length - 1];
-  var sql = "SELECT * FROM employee WHERE employee_id = ?";
+  var sql = "SELECT * FROM employees WHERE employee_id = ?";
   con.query(sql, id, function(err, result){
     if (err) console.error(err)
-    bcrypt.compare(attempt, result.password).then(function(_result) {
-      res.json({"match": _result});
-    });
+    res.json({"match": bcrypt.compareSync(attempt, result.password)});
   })  
 })
 
