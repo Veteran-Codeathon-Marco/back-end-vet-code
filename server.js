@@ -53,7 +53,7 @@ var con = mysql.createPool({
     con.query(sql, function (err, result) {
       if (err) console.error(err);
     });
-
+ 
     //MAKE POSTS TABLES
     sql = "CREATE TABLE IF NOT EXISTS `posts` ( `post_id` int NOT NULL AUTO_INCREMENT COMMENT 'primary key', `post_time` datetime DEFAULT CURRENT_TIMESTAMP, `post_type` enum('Sell','Buy') NOT NULL, `price` decimal(20,2) DEFAULT NULL, `post_amount` varchar(255) DEFAULT NULL, `post_description` text, `post_image_url` varchar(255) DEFAULT NULL, `post_location` varchar(255) DEFAULT NULL, `employee_id` int unsigned NOT NULL, `post_name` varchar(255) NOT NULL, PRIMARY KEY (`post_id`), KEY `employee_id` (`employee_id`), FOREIGN KEY (`employee_id`) REFERENCES `employees` (`employee_id`) )"
     con.query(sql, function (err, result) {
