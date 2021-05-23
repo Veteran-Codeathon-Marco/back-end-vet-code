@@ -172,8 +172,8 @@ app.post('/businesses/new', (req, res) => {
   let password = req.body.password;
   let phoneNumber = req.body.phoneNumber;
 
-  var sql = "INSERT INTO businesses (business_name, business_categories, business_description, business_image_url, email, password, address, phone_number) VALUES (?, ?, ?, ?, ?, ?, ?)";
-  con.query(sql, [name, categories, description, imageURL, email, password, address, phone_number], function (err, result) {
+  var sql = "INSERT INTO businesses (business_name, business_categories, business_description, business_image_url, email, password, address, phone_number) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+  con.query(sql, [name, categories, description, imageURL, email, password, address, phoneNumber], function (err, result) {
     if (err) console.error(err);
     res.send("Created new business!");
   });
