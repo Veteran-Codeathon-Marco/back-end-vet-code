@@ -107,7 +107,7 @@ app.post('/users/new', (req, res) => {
   var sql = "INSERT INTO users (first_name, last_name, email, password, profile_image_url, address) VALUES (?, ?, ?, ?, ?, ?)";
   con.query(sql, [firstName, lastName, email, password, imageURL, address], function (err, result) {
     if (err) console.error(err);
-    res.json(result);
+    res.json({"id": result.insertId});
   });
 })
 
@@ -334,7 +334,7 @@ app.post('/employees/new', (req, res) => {
   var sql = "INSERT INTO employees (first_name, last_name, email, password, profile_image_url, business_id, address) VALUES (?, ?, ?, ?, ?, ?, ?)";
   con.query(sql, [firstName, lastName, email, password, imageURL, businessID, address], function (err, result) {
     if (err) console.error(err);
-    res.send("Created new employee!");
+    res.json({"id": result.insertId});
   });
 })
 
