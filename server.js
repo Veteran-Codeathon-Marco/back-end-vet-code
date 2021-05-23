@@ -35,15 +35,26 @@ var con = mysql.createPool({
   });
   // mysql://b9e533a14b394b:0d3e9617@us-cdbr-east-03.cleardb.com/heroku_5eadd1519f813b4?reconnect=true
   
-//confirm connection  
-    let sql = "CREATE TABLE IF NOT EXISTS `businesses` ( `business_id` int NOT NULL AUTO_INCREMENT COMMENT 'primary key', `business_name` varchar(255) NOT NULL, `business_categories` varchar(255) NOT NULL, `business_description` text, `business_image_url` varchar(255) DEFAULT NULL, PRIMARY KEY (`business_id`) )";
+
+  //MAKE USERS TABLE
+    let sql = "CREATE TABLE IF NOT EXISTS `users` ( `user_id` int unsigned NOT NULL AUTO_INCREMENT, `first_name` varchar(63) NOT NULL, `last_name` varchar(63) NOT NULL, `email` varchar(127) NOT NULL, `password` varchar(255) NOT NULL, `profile_image_url` varchar(255) DEFAULT NULL, PRIMARY KEY (`user_id`), UNIQUE KEY `email` (`email`) )";
     con.query(sql, function (err, result) {
       if (err) console.error(err);
     });
-    sql = "CREATE TABLE IF NOT EXISTS `employees` ( `employee_id` int unsigned NOT NULL AUTO_INCREMENT, `first_name` varchar(63) NOT NULL, `last_name` varchar(63) NOT NULL, `email` varchar(127) NOT NULL, `password` varchar(255) NOT NULL, `profile_image_url` varchar(255) DEFAULT NULL, `business_id` int DEFAULT NULL, PRIMARY KEY (`employee_id`), UNIQUE KEY `email` (`email`), KEY `business_id` (`business_id`), FOREIGN KEY (`business_id`) REFERENCES `businesses` (`business_id`) )";
+
+    //MAKE BUSINESSES TABLE
+    sql = "CREATE TABLE IF NOT EXISTS `businesses` ( `business_id` int NOT NULL AUTO_INCREMENT COMMENT 'primary key', `business_name` varchar(255) NOT NULL, `business_categories` varchar(255) NOT NULL, `business_description` text, `business_image_url` varchar(255) DEFAULT NULL, `email` varchar(127) NOT NULL, `password` varchar(255) NOT NULL, `address` varchar(255) DEFAULT NULL, `phone_number` varchar(255) DEFAULT NULL, PRIMARY KEY (`business_id`) )";
     con.query(sql, function (err, result) {
       if (err) console.error(err);
     });
+
+    //MAKE EMPLOYEES TABLE
+    sql = "CREATE TABLE IF NOT EXISTS `employees` ( `employee_id` int unsigned NOT NULL AUTO_INCREMENT, `first_name` varchar(63) NOT NULL, `last_name` varchar(63) NOT NULL, `email` varchar(127) NOT NULL, `password` varchar(255) NOT NULL, `profile_image_url` varchar(255) DEFAULT NULL, `business_id` int NOT NULL, PRIMARY KEY (`employee_id`), UNIQUE KEY `email` (`email`), KEY `business_id` (`business_id`), FOREIGN KEY (`business_id`) REFERENCES `businesses` (`business_id`) )";
+    con.query(sql, function (err, result) {
+      if (err) console.error(err);
+    });
+
+    //MAKE POSTS TABLES
     sql = "CREATE TABLE IF NOT EXISTS `posts` ( `post_id` int NOT NULL AUTO_INCREMENT COMMENT 'primary key', `post_time` datetime DEFAULT CURRENT_TIMESTAMP, `post_type` enum('Sell','Buy') NOT NULL, `price` decimal(20,2) DEFAULT NULL, `post_amount` varchar(255) DEFAULT NULL, `post_description` text, `post_image_url` varchar(255) DEFAULT NULL, `post_location` varchar(255) DEFAULT NULL, `employee_id` int unsigned NOT NULL, `post_name` varchar(255) NOT NULL, PRIMARY KEY (`post_id`), KEY `employee_id` (`employee_id`), FOREIGN KEY (`employee_id`) REFERENCES `employees` (`employee_id`) )"
     con.query(sql, function (err, result) {
       if (err) console.error(err);
@@ -55,6 +66,76 @@ app.get('/', (req, res) => {
   res.write("<p>" + DOCUMENTATION_STR + "</p>");
   res.end();
 });
+
+/*-------START OF USERS API-------*/
+
+//get all users
+app.get('/users', (req, res) => {
+  var sql = "SELECT * FROM users";
+  con.query(sql, function (err, result) {
+    if (err) console.error(err);
+    res.json(result)
+    res.end()
+  });
+})
+
+//get one user by id
+app.get('/users/:id', (req, res) => {
+  let url = req.url;
+  let arr = url.split("/");
+  let id = arr[arr.length - 1];
+  var sql = "SELECT * FROM users WHERE user_id = ?";
+  con.query(sql, [id], function (err, result) {
+    if (err) console.error(err);
+    res.json(result);
+  });
+})
+
+//create a user
+app.post('/users/new', (req, res) => {
+  let firstName = req.body.firstName;
+  let lastName = req.body.lastName;
+  let email = req.body.email;
+  let password = req.body.password;
+  let imageURL = req.body.imageURL;
+
+  var sql = "INSERT INTO users (first_name, last_name, email, password, profile_image_url) VALUES (?, ?, ?, ?, ?)";
+  con.query(sql, [firstName, lastName, email, password, imageURL], function (err, result) {
+    if (err) console.error(err);
+    res.send("Created new employee!");
+  });
+})
+
+//update a user
+app.put('/users/id', (req, res) => {
+  let firstName = req.body.firstName;
+  let lastName = req.body.lastName;
+  let email = req.body.email;
+  let password = req.body.password;
+  let imageURL = req.body.imageURL;
+  let url = req.url;
+  let arr = url.split("/");
+  let id = arr[arr.length - 1];
+
+  var sql = "UPDATE users SET first_name = ?, last_name = ?, email = ?, password = ?, image_url = ? WHERE user_id = ?";
+  con.query(sql, [firstName, lastName, email, password, imageURL, id], function (err, result) {
+    if (err) console.error(err);
+    res.send("Updated user!");
+  });
+})
+
+//delete user
+app.delete('/users/:id', (req, res) => {
+  let url = req.url;
+  let arr = url.split("/");
+  let id = arr[arr.length - 1];
+  var sql = "DELETE FROM users WHERE user_id = ?";
+  con.query(sql, id, function (err, result) {
+    if (err) console.error(err);
+    res.send("Deleted user!");
+  });
+})
+
 
 /*-------START OF BUSINESSES API-------*/
 
@@ -86,9 +167,13 @@ app.post('/businesses/new', (req, res) => {
   let categories = req.body.categories;
   let description = req.body.description;
   let imageURL = req.body.imageURL;
-  console.log(name, categories, description);
-  var sql = "INSERT INTO businesses (business_name, business_categories, business_description, business_image_url) VALUES (?, ?, ?, ?)";
-  con.query(sql, [name, categories, description, imageURL], function (err, result) {
+  let email = req.body.email;
+  let address = req.body.address;
+  let password = req.body.password;
+  let phoneNumber = req.body.phoneNumber;
+
+  var sql = "INSERT INTO businesses (business_name, business_categories, business_description, business_image_url, email, password, address, phone_number) VALUES (?, ?, ?, ?, ?, ?, ?)";
+  con.query(sql, [name, categories, description, imageURL, email, password, address, phone_number], function (err, result) {
     if (err) console.error(err);
     res.send("Created new business!");
   });
@@ -103,8 +188,13 @@ app.put('/businesses/:id', (req, res) => {
   let categories = req.body.categories;
   let description = req.body.description;
   let imageURL = req.body.imageURL;
-  var sql = "UPDATE businesses SET business_name = ?, business_categories = ?, business_categories = ?, business_image_url = ? WHERE business_id = ?";
-  con.query(sql, [name, categories, description, imageURL, id], function (err, result) {
+  let email = req.body.email;
+  let address = req.body.address;
+  let password = req.body.password;
+  let phoneNumber = req.body.phoneNumber;
+
+  var sql = "UPDATE businesses SET business_name = ?, business_categories = ?, business_categories = ?, business_image_url = ?, email = ?, password = ?, address = ?, phone_number = ? WHERE business_id = ?";
+  con.query(sql, [name, categories, description, imageURL, email, password, address, phoneNumber, id], function (err, result) {
     if (err) console.error(err);
     res.send("Edited business!");
   });
