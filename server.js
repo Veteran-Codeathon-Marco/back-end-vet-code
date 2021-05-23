@@ -2,6 +2,7 @@ var express = require('express');
 var app = express();
 var fs = require("fs");
 var mysql = require('mysql2');
+var path = require('path');
 // const rootPass = require('./secrets');
 const port = process.env.PORT || 3000;
 
