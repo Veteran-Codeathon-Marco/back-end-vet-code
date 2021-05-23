@@ -67,8 +67,7 @@ app.get('/', (req, res) => {
   res.sendFile('documentation.html', (req, res) => {
     if (err) console.error(err)
     console.log('sent the docs')
-    res.end();
-  }
+  })
   res.end();
 });
 
