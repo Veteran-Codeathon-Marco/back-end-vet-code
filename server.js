@@ -149,7 +149,8 @@ app.post('/users/auth/:id', (req, res) => {
   var sql = "SELECT * FROM users WHERE user_id = ?";
   con.query(sql, id, function(err, result){
     if (err) console.error(err)
-    res.json({"match": bcrypt.compareSync(attempt + "", result.password)});
+    res.json({"attempttype": typeof attempt, "passtype": typeof result.password})
+    // res.json({"match": bcrypt.compareSync(attempt + "", result.password)});
   })  
 })
 
