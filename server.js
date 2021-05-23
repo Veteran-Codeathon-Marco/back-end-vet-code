@@ -40,7 +40,7 @@ var con = mysql.createPool({
   
 
   //MAKE USERS TABLE
-    let sql = "CREATE TABLE IF NOT EXISTS `users` ( `user_id` int unsigned NOT NULL AUTO_INCREMENT, `first_name` varchar(63) NOT NULL, `last_name` varchar(63) NOT NULL, `email` varchar(127) NOT NULL, `password` varchar(255) NOT NULL, `profile_image_url` varchar(255) DEFAULT NULL, PRIMARY KEY (`user_id`), UNIQUE KEY `email` (`email`) )";
+    let sql = "CREATE TABLE IF NOT EXISTS `users` ( `user_id` int unsigned NOT NULL AUTO_INCREMENT, `first_name` varchar(63) NOT NULL, `last_name` varchar(63) NOT NULL, `email` varchar(127) NOT NULL, `password` varchar(255) NOT NULL, `profile_image_url` varchar(255) DEFAULT NULL, `address` varchar(255) DEFAULT NULL, PRIMARY KEY (`user_id`), UNIQUE KEY `email` (`email`) )";
     con.query(sql, function (err, result) {
       if (err) console.error(err);
     });
@@ -52,7 +52,7 @@ var con = mysql.createPool({
     });
 
     //MAKE EMPLOYEES TABLE
-    sql = "CREATE TABLE IF NOT EXISTS `employees` ( `employee_id` int unsigned NOT NULL AUTO_INCREMENT, `first_name` varchar(63) NOT NULL, `last_name` varchar(63) NOT NULL, `email` varchar(127) NOT NULL, `password` varchar(255) NOT NULL, `profile_image_url` varchar(255) DEFAULT NULL, `business_id` int NOT NULL, PRIMARY KEY (`employee_id`), UNIQUE KEY `email` (`email`), KEY `business_id` (`business_id`), FOREIGN KEY (`business_id`) REFERENCES `businesses` (`business_id`) )";
+    sql = "CREATE TABLE IF NOT EXISTS `employees` ( `employee_id` int unsigned NOT NULL AUTO_INCREMENT, `first_name` varchar(63) NOT NULL, `last_name` varchar(63) NOT NULL, `email` varchar(127) NOT NULL, `password` varchar(255) NOT NULL, `profile_image_url` varchar(255) DEFAULT NULL, `address` varchar(255) DEFAULT NULL, `business_id` int NOT NULL, PRIMARY KEY (`employee_id`), UNIQUE KEY `email` (`email`), KEY `business_id` (`business_id`), FOREIGN KEY (`business_id`) REFERENCES `businesses` (`business_id`) )";
     con.query(sql, function (err, result) {
       if (err) console.error(err);
     });
@@ -102,16 +102,17 @@ app.post('/users/new', (req, res) => {
   let email = req.body.email;
   let password = bcrypt.hashSync(req.body.password);
   let imageURL = req.body.imageURL;
+  let address = req.body.address;
 
-  var sql = "INSERT INTO users (first_name, last_name, email, password, profile_image_url) VALUES (?, ?, ?, ?, ?)";
-  con.query(sql, [firstName, lastName, email, password, imageURL], function (err, result) {
+  var sql = "INSERT INTO users (first_name, last_name, email, password, profile_image_url, address) VALUES (?, ?, ?, ?, ?, ?)";
+  con.query(sql, [firstName, lastName, email, password, imageURL, address], function (err, result) {
     if (err) console.error(err);
     res.send("Created new user!");
   });
 })
 
 //update a user
-app.put('/users/id', (req, res) => {
+app.put('/users/:id', (req, res) => {
   let firstName = req.body.firstName;
   let lastName = req.body.lastName;
   let email = req.body.email;
@@ -120,9 +121,10 @@ app.put('/users/id', (req, res) => {
   let url = req.url;
   let arr = url.split("/");
   let id = arr[arr.length - 1];
+  let address = req.body.address;
 
-  var sql = "UPDATE users SET first_name = ?, last_name = ?, email = ?, password = ?, image_url = ? WHERE user_id = ?";
-  con.query(sql, [firstName, lastName, email, password, imageURL, id], function (err, result) {
+  var sql = "UPDATE users SET first_name = ?, last_name = ?, email = ?, password = ?, image_url = ?, address = ? WHERE user_id = ?";
+  con.query(sql, [firstName, lastName, email, password, imageURL, address, id], function (err, result) {
     if (err) console.error(err);
     res.send("Updated user!");
   });
@@ -327,25 +329,30 @@ app.post('/employees/new', (req, res) => {
   let password = bcrypt.hashSync(req.body.password);
   let imageURL = req.body.imageURL;
   let businessID = req.body.businessID;
+  let address = req.body.address;
 
-  var sql = "INSERT INTO employees (first_name, last_name, email, password, profile_image_url, business_id) VALUES (?, ?, ?, ?, ?, ?)";
-  con.query(sql, [firstName, lastName, email, password, imageURL, businessID], function (err, result) {
+  var sql = "INSERT INTO employees (first_name, last_name, email, password, profile_image_url, business_id, address) VALUES (?, ?, ?, ?, ?, ?, ?)";
+  con.query(sql, [firstName, lastName, email, password, imageURL, businessID, address], function (err, result) {
     if (err) console.error(err);
     res.send("Created new employee!");
   });
 })
 
 //update an employee
-app.post('/employees/new', (req, res) => {
+app.put('/employees/:id', (req, res) => {
   let firstName = req.body.firstName;
   let lastName = req.body.lastName;
   let email = req.body.email;
   let password = bcrypt.hashSync(req.body.password);
   let imageURL = req.body.imageURL;
   let businessID = req.body.businessID;
+  let address = req.body.address;
+  let url = req.url;
+  let arr = url.split("/");
+  let id = arr[arr.length - 1];
 
-  var sql = "INSERT INTO employees (first_name, last_name, email, password, profile_image_url, business_id) VALUES (?, ?, ?, ?, ?, ?)";
-  con.query(sql, [firstName, lastName, email, password, imageURL, businessID], function (err, result) {
+  var sql = "UPDATE users SET first_name = ?, last_name = ?, email = ?, password = ?, image_url = ?, address = ?, business_id = ? WHERE user_id = ?";
+  con.query(sql, [firstName, lastName, email, password, imageURL, address, businessID, id], function (err, result) {
     if (err) console.error(err);
     res.send("Updated employee!");
   });

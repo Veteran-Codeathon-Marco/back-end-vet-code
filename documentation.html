@@ -11,7 +11,7 @@
     <title>Vet API Docs</title>
   </head>
   <body>
-    <h2>Welcome to the Veteran API!</h2>
+    <h2>Welcome to the Veteran App API!</h2>
     <p>
       Welcome to the Veteran API!<br /><br /><br /><br />DOCUMENTATION FOR THE
       VETERAN APP API<br /><br />BELOW ARE THE FOUR TABLES AND THE URLS THAT
@@ -26,12 +26,14 @@
       THESE ATTRIBUTES IN BODY:<br />{<br />&nbsp; &nbsp; firstName:<br />&nbsp;
       &nbsp; lastName:<br />&nbsp; &nbsp; email: !!!THIS IS UNIQUE, ONE ACCOUNT
       PER EMAIL, THE DATABASE REJECT DUPLICATES!!!<br />&nbsp; &nbsp;
-      password:<br />&nbsp; &nbsp; imageURL &lt;OPTIONAL&gt;:<br />}<br /><br />-------------------------------------------------------------------------------<br /><br />TO
+      password:<br />&nbsp; &nbsp; imageURL &lt;OPTIONAL&gt;:<br />&nbsp; &nbsp;
+      address &lt;OPTIONAL&gt;:<br />}<br /><br />-------------------------------------------------------------------------------<br /><br />TO
       UPDATE A USER<br />PUT https://vet-codeathon.herokuapp.com/users/{id}<br /><br />^^^NEEDS
       THESE ATTRIBUTES IN BODY:<br />{<br />&nbsp; &nbsp; firstName:<br />&nbsp;
       &nbsp; lastName:<br />&nbsp; &nbsp; email : !!!THIS IS UNIQUE, ONE ACCOUNT
       PER EMAIL, THE DATABASE REJECT DUPLICATES!!!<br />&nbsp; &nbsp;
-      password:<br />&nbsp; &nbsp; imageURL &lt;OPTIONAL&gt;:<br />}<br /><br />----------------------------------------------------------<br /><br />TO
+      password:<br />&nbsp; &nbsp; imageURL &lt;OPTIONAL&gt;:<br />&nbsp; &nbsp;
+      address &lt;OPTIONAL&gt;:<br />}<br /><br />----------------------------------------------------------<br /><br />TO
       DELETE A USER<br />DELETE
       https://vet-codeathon.herokuapp.com/users/{id}<br /><br />----------------------------------------------------------<br /><br />TO
       AUTHENTICATE USER PASSWORD<br />POST
@@ -49,14 +51,16 @@
       &nbsp; lastName:<br />&nbsp; &nbsp; email: !!!THIS IS UNIQUE, ONE ACCOUNT
       PER EMAIL, THE DATABASE REJECT DUPLICATES!!!<br />&nbsp; &nbsp;
       password:<br />&nbsp; &nbsp; imageURL &lt;OPTIONAL&gt;:<br />&nbsp; &nbsp;
-      businessID &lt;OPTIONAL&gt;:<br />}<br /><br />-------------------------------------------------------------------------------<br /><br />TO
+      businessID &lt;OPTIONAL&gt;:<br />&nbsp; &nbsp; address
+      &lt;OPTIONAL&gt;:<br />}<br /><br />-------------------------------------------------------------------------------<br /><br />TO
       UPDATE AN EMPLOYEE<br />PUT
       https://vet-codeathon.herokuapp.com/employees/{id}<br /><br />^^^NEEDS
       THESE ATTRIBUTES IN BODY:<br />{<br />&nbsp; &nbsp; firstName:<br />&nbsp;
       &nbsp; lastName:<br />&nbsp; &nbsp; email : !!!THIS IS UNIQUE, ONE ACCOUNT
       PER EMAIL, THE DATABASE REJECT DUPLICATES!!!<br />&nbsp; &nbsp;
       password:<br />&nbsp; &nbsp; imageURL &lt;OPTIONAL&gt;:<br />&nbsp; &nbsp;
-      businessID &lt;OPTIONAL&gt;:<br />}<br /><br />----------------------------------------------------------<br /><br />TO
+      businessID &lt;OPTIONAL&gt;:<br />&nbsp; &nbsp; address
+      &lt;OPTIONAL&gt;:<br />}<br /><br />----------------------------------------------------------<br /><br />TO
       DELETE AN EMPLOYEE<br />DELETE
       https://vet-codeathon.herokuapp.com/employees/{id}<br /><br />----------------------------------------------------------<br /><br />TO
       AUTHENTICATE EMPLOYEE PASSWORD<br />POST
