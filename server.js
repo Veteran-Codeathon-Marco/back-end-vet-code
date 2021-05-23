@@ -64,7 +64,10 @@ var con = mysql.createPool({
 
 
 app.get('/', (req, res) => {
-  res.sendFile( path.resolve('/public/documentation.html') );
+  res.sendFile('documentation.html', (req, res) => {
+    if (err) console.error(err)
+    console.log('sent the docs')
+  }
   res.end();
 });
 
@@ -103,7 +106,7 @@ app.post('/users/new', (req, res) => {
   var sql = "INSERT INTO users (first_name, last_name, email, password, profile_image_url) VALUES (?, ?, ?, ?, ?)";
   con.query(sql, [firstName, lastName, email, password, imageURL], function (err, result) {
     if (err) console.error(err);
-    res.send("Created new employee!");
+    res.send("Created new user!");
   });
 })
 
