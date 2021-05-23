@@ -350,7 +350,7 @@ app.put('/employees/:id', (req, res) => {
   let url = req.url;
   let arr = url.split("/");
   let id = arr[arr.length - 1];
-
+ 
   var sql = "UPDATE users SET first_name = ?, last_name = ?, email = ?, password = ?, image_url = ?, address = ?, business_id = ? WHERE user_id = ?";
   con.query(sql, [firstName, lastName, email, password, imageURL, address, businessID, id], function (err, result) {
     if (err) console.error(err);
