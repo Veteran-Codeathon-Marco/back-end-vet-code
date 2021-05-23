@@ -112,7 +112,7 @@ app.post('/users/new', (req, res) => {
 })
 
 //update a user
-app.put('/users/:id', (req, res) => {https://vet-codeathon.herokuapp.com/employees/new
+app.put('/users/:id', (req, res) => {
   let firstName = req.body.firstName;
   let lastName = req.body.lastName;
   let email = req.body.email;
@@ -126,7 +126,7 @@ app.put('/users/:id', (req, res) => {https://vet-codeathon.herokuapp.com/employe
   var sql = "UPDATE users SET first_name = ?, last_name = ?, email = ?, password = ?, image_url = ?, address = ? WHERE user_id = ?";
   con.query(sql, [firstName, lastName, email, password, imageURL, address, id], function (err, result) {
     if (err) console.error(err);
-    res.send("Updated user!");
+    res.json(result);
   });
 })
 
